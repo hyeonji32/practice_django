@@ -1,2 +1,2 @@
-# practice_django
-안녕혜지
+# practice_django 
+안녕혜지!
