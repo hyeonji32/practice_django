@@ -4,5 +4,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 
-def hello(str):
-    return HttpResponse(str)
+def hello(self):
+    print("aaa")
+    print(self)
+    return HttpResponse("안녕하세요")
