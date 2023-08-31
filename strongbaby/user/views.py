@@ -1,11 +1,6 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import json
-
 from .models import User
-
-
-# Create your views here.
 
 
 def hello(self):
@@ -15,10 +10,23 @@ def hello(self):
 
 
 def signup(request):
-    if request.method == 'PUT':
+    if request.method == 'POST':
         data = json.loads(request.body)
-        user_id = data['user_id']
+        name = data['name']
         password = data['password']
-        user = User(user_id, password)
+        user = User(name, password)
         user.save()
     return HttpResponse("ok")
+
+
+def find_user(request):
+    if request.method == 'GET':
+        data = json.loads(request.body)
+        id = data['id']
+        user = User.objects.get(id=id)
+        context = {
+            "user_id": user.id,
+            "name": user.name,
+            "password": user.password
+        }
+    return JsonResponse(context)
