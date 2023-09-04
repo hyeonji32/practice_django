@@ -30,3 +30,20 @@ def find_user(request):
             "password": user.password
         }
     return JsonResponse(context)
+
+
+def update_user(request, user_id):
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        user = User.objects.get(id=user_id)
+        user.id = user_id
+        user.name = data["name"]
+        user.password = data["password"]
+        user.save()
+        context = {
+            "id": user.id,
+            "name": user.name,
+            "password": user.password
+        }
+    return JsonResponse(context)
+
