@@ -2,9 +2,6 @@ from django.db import models
 
 
 class User(models.Model):
-    def __init__(self, *args, **kwargs):
-        super().__init__(args, kwargs)
-        self.id = None
-
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255, null=True, default="")
     password = models.CharField(max_length=255)
