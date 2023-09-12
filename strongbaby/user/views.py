@@ -14,7 +14,7 @@ def signup(request):
         data = json.loads(request.body)
         name = data['name']
         password = data['password']
-        user = User(name, password)
+        user = User(name=name, password=password)
         user.save()
     return HttpResponse("ok")
 
@@ -47,3 +47,30 @@ def update_user(request, user_id):
         }
     return JsonResponse(context)
 
+
+def delete_user(request):
+    if request.method == 'DELETE':
+        user_id = request.GET.get('user_id', None)
+        print(user_id)
+        user = User.objects.get(id=user_id)
+        print(user)
+        user.delete()
+        context = {
+            "id": user.id,
+            "name": user.name,
+            "password": user.password
+        }
+    return JsonResponse(context)
+
+
+def find_user_all(request):
+    if request.method == 'GET':
+        # data = json.loads(request.body)
+        # id = data['id']
+        user = User.objects.all()
+        context = {
+            # "user_id": user.id,
+            # "name": user.name,
+            # "password": user.password
+        }
+    return JsonResponse(user[0].id)
